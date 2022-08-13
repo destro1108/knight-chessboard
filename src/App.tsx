@@ -1,10 +1,10 @@
 import { useCallback, useMemo, useState } from "react";
 import Box from "./components/Box";
 
-function App() {
+const App = () => {
   const [selectedBox, setSelectedBox] = useState<{ x: number; y: number }>({ x: -1, y: -1 });
   const [possibleMoves, setPossibleMoves] = useState<{ x: number; y: number }[]>([]);
-  const moves = useMemo(
+  const moves: number[][] = useMemo(
     () => [
       [-2, -1],
       [-1, -2],
@@ -18,12 +18,16 @@ function App() {
     [],
   );
 
-  const chessBoard = useMemo(
+  const chessBoard: number[][][] = useMemo(
     () => [...Array(8)].map((_, inxR) => [...Array(8)].map((__, inxC) => [inxR + 1, inxC + 1])),
     [],
   );
   const handleSelect = useCallback((x: number, y: number) => {
-    const possible = moves.map(([moveX, moveY]) => ({ x: x + moveX, y: y + moveY }));
+    const possible: { x: number; y: number }[] = moves.reduce(
+      (acc: { x: number; y: number }[], [moveX, moveY]) =>
+        x + moveX > 0 && y + moveY > 0 ? [...acc, { x: x + moveX, y: y + moveY }] : [...acc],
+      [],
+    );
     setSelectedBox({ x, y });
     setPossibleMoves(possible);
   }, []);
@@ -101,6 +105,6 @@ function App() {
       </div>
     </div>
   );
-}
+};
 
 export default App;
