@@ -32,7 +32,7 @@ const App = () => {
     setPossibleMoves(possible);
   }, []);
   return (
-    <div className="container h-full w-screen mx-auto flex flex-col gap-6 items-center justify-center">
+    <div className="mx-auto h-full w-screen flex flex-col gap-6 items-center justify-center">
       <div className="grid grid-cols-8 gap-0.5 items-center justify-center border-2 border-slate-800 p-2">
         {chessBoard.map((row) => {
           return row.map(([indexRow, indexCol]) => (
